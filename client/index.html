@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html data-ng-app="BaseApp">
+<head>
+
+<!-- Style sheets -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+
+<!-- External -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/restangular/1.5.1/restangular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
+
+<!-- Scripts -->
+<script src="base.js"></script>
+</head>
+
+<body>
+<section data-ng-controller="PostController">
+  <div class="col-md-4">
+     <h4>POST Example</h4>
+     <input type="text" data-ng-model="name" class="form-control">
+     <br>
+     <textarea data-ng-model="text" rows="4" cols="25" class="form-control"></textarea>
+     <br>
+     <button data-ng-click="sendPost()">Send</button>
+  </div>
+  <div class="col-md-4">
+     <ol>
+       <li data-ng-repeat="item in tags"> {{item}} </li>
+     </ol>
+  </div>
+</section>
+
+
+</body>
+</html>
