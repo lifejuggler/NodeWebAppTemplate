@@ -17,13 +17,7 @@ app.controller('PostController', function($scope, Restangular) {
       data = Restangular.stripRestangular(data);
       console.log(data);
 
-      $scope.tags = [];
-      angular.forEach(data, function(v, k) {
-        if (v.hasOwnProperty('name') && v.hasOwnProperty('importance')) {
-          $scope.tags.push( v.name );
-        }
-      });
-
+      $scope.tags = data;
     });
   };
 

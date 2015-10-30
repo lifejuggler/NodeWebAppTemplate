@@ -68,13 +68,13 @@ app.use( bodyParser.json() );
 app.post('/api/calais', function(req, res) {
   var name = req.body.name;
   var text = req.body.text;
-  options.body = text;
 
-  request(options, function(err, response, data) {
+  request(opencalais.create(text), function(err, response, data) {
     res.statusCode = 200;
     res.header('Content-Type', 'application/json');
-    res.json( JSON.parse(data) );
+    res.json(opencalais.transform(JSON.parse(data)) );
   });
+
 });
 
 
