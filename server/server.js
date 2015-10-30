@@ -1,37 +1,40 @@
-var requestProxy = require('request');
+var request = require('request');
 var static = require('node-static');
 var express = require('express');
 var bodyParser = require('body-parser');
 var elasticsearch = require('elasticsearch');
 var fs = require('fs');
 
+var opencalais = require('./opencalais')();
+var dandelion = require('./dandelion')();
 
-///////////////////////////////////////////////////////////////////////////////
-// Open Calais
-///////////////////////////////////////////////////////////////////////////////
-var options = {
-  uri: 'https://api.thomsonreuters.com/permid/calais?',
-  method: 'POST',
-  body: '',
-  headers : {
-    'x-ag-access-token': '<read_token_from_file>',
-    'x-calais-language': 'English',
-    'Content-Type': 'text/raw',
-    'Accept': 'application/json',
-    'outputFormat': 'application/json'
-  }
-};
 
-fs.readFile('.calais_access_token', 'utf-8', function(err, data) {
-  console.log('my key is :', data);
-  options.headers['x-ag-access-token'] = data;
-});
+opencalais.init();
+dandelion.init();
+
+setTimeout(function() {
+  var payload = 'The Mona Lisa is a 16th century oil painting created by Leonardo. It\'s held at the Louvre in Paris.';
+  var oPayload = opencalais.create(payload);
+  var dPayload = dandelion.create(payload);
+
+  console.log('Payload: ', payload);
+
+  request(dPayload, function(err, response, data) {
+    console.log(dandelion.transform(JSON.parse(data)));
+  });
+
+  request(oPayload, function(err, response, data) {
+    console.log(opencalais.transform(JSON.parse(data)));
+  });
+
+}, 2000);
 
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // Elasticsearch
 ///////////////////////////////////////////////////////////////////////////////
+
 /*
 var client = elasticsearch.Client({
   host: 'localhost:9200'
@@ -40,7 +43,7 @@ var client = elasticsearch.Client({
 client.create({
   index: 'ctest',
   type: 'typeTest',
-  id: 'x',
+  // id: 'x',
   body: {
     title: 'hello world',
     tags: ['tag1', 'tag2', 'tag3'],
@@ -48,6 +51,7 @@ client.create({
   }
 });
 */
+
 
 
 
@@ -66,7 +70,7 @@ app.post('/api/calais', function(req, res) {
   var text = req.body.text;
   options.body = text;
 
-  requestProxy(options, function(err, response, data) {
+  request(options, function(err, response, data) {
     res.statusCode = 200;
     res.header('Content-Type', 'application/json');
     res.json( JSON.parse(data) );
@@ -84,7 +88,3 @@ app.get(/\w*/, function(req, res){
 
 app.listen(54321);
 console.log('Start server on :54321');
-
-
-
-
