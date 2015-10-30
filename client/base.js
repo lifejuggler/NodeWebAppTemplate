@@ -5,20 +5,27 @@ var app = angular.module('BaseApp', [
 
 app.controller('PostController', function($scope, Restangular) {
 
-  $scope.tags = [];
+  $scope.oTags = [];
+  $scope.dTags = [];
 
   $scope.sendPost = function() {
     var payload = {
       name: $scope.name,
       text: $scope.text
     };
-    console.log("Payload is: ", payload);
+
     Restangular.one('api').post('calais', payload).then(function(data) {
       data = Restangular.stripRestangular(data);
       console.log(data);
-
-      $scope.tags = data;
+      $scope.oTags = data;
     });
+
+    Restangular.one('api').post('dandelion', payload).then(function(data) {
+      data = Restangular.stripRestangular(data);
+      console.log(data);
+      $scope.dTags = data;
+    });
+
   };
 
 });

@@ -77,6 +77,19 @@ app.post('/api/calais', function(req, res) {
 
 });
 
+app.post('/api/dandelion', function(req, res) {
+  var name = req.body.name;
+  var text = req.body.text;
+
+  request(dandelion.create(text), function(err, response, data) {
+    res.statusCode = 200;
+    res.header('Content-Type', 'application/json');
+    res.json(dandelion.transform(JSON.parse(data)) );
+  });
+});
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // This needs to go last
