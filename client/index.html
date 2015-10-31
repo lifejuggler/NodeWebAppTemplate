@@ -28,14 +28,19 @@
      <button data-ng-click="sendPost()">Send</button>
   </div>
   <div class="col-md-4">
-     Opencalais Tags
+     <strong data-ng-if="oTags.length > 0">Opencalais Tags</strong>
      <ol>
        <li data-ng-repeat="item in oTags"> {{item}} </li>
      </ol>
 
-     Dandelion Tags
+     <strong data-ng-if="dTags.length > 0">Dandelion Tags</strong>
      <ol>
        <li data-ng-repeat="item in dTags"> {{item}} </li>
+     </ol>
+
+     <strong data-ng-if="aTags.length > 0">Alchemy Tags</strong>
+     <ol>
+       <li data-ng-repeat="item in aTags"> {{item}} </li>
      </ol>
 
   </div>

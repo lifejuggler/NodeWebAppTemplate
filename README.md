@@ -14,15 +14,23 @@ npm install
 ```
 
 ### Text Processing
+Currently experimenting with these NLP APIs
 #### Dandelion
 https://dandelion.eu
 
-Auth key needs to be under `server/.dandelion_access_token` in the format of *appId*=*accessKey*
+Create `server/.dandelion_access_token` with your credentials in the format of *appId*=*accessKey*
 
 #### Opencalais
 http://www.opencalais.com/
 
-Auth key needs to be under `server/.calais_access_token`
+Create `server/.calais_access_token` with your credentials
+
+
+#### Alchemy
+http://www.opencalais.com/
+
+Create `server/.alchemy_access_token` with your credentials
+
 
 
 ### Run
